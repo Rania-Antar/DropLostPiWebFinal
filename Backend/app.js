@@ -59,7 +59,7 @@ app.use(cors());
 mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 mongoose.set("useNewUrlParser", true);
-mongoose.connect(config.MongoURI);
+mongoose.connect(process.env.MongoURI || config.MongoURI);
 mongoose.connection.on("error", (err) => {
   console.error(err);
   console.log(
@@ -72,7 +72,7 @@ mongoose.connection.on("error", (err) => {
 /**
  * Express configuration.
  */
-app.set("port", config.port || 8080);
+app.set("port", process.env.PORT || 8080);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -148,6 +148,15 @@ app.use("/objects", objectRouter);
 app.use("/persons", personRouter);
 
 app.use("/uploads", express.static("uploads"));
+
+//Serve static  assets in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("Frontend/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "Frontend", "build", "index.html"));
+  });
+}
 
 /**
  * Start Express server.

@@ -38,7 +38,7 @@ exports.getFacebook = async (req, res, next) => {
   ];
   graph.setAccessToken(token.accessToken);
   group = config.GROUP_ID;
-  path = `/${group}/feed?fields=${fbSimpleFields}`;
+  path = `/${group}/feed?fields=${fbSimpleFields}&limit=${config.PER_PAGE}`;
   // console.log(req.query)
   if (req.query.next) {
     path = req.query.next.replace("https://graph.facebook.com/v6.0", "");

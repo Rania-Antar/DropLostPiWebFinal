@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import axios from "axios";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
@@ -30,6 +30,21 @@ import ProfileUpdateInfosPage from "./views/Api/ProfileUpdateInfosPage";
 import AccountActivationPage from "./views/Api/accountActivation";
 import ForgotPasswordPage from "./views/Api/ForgotPasswordPage";
 import ResetPasswordPage from "./views/Api/ResetPasswordPage";
+
+import Loadable from "react-loadable";
+
+import "../node_modules/font-awesome/scss/font-awesome.scss";
+
+import Loader from "./App/layout/Loader";
+import Aux from "./hoc/_Aux";
+import ScrollToTop from "./App/layout/ScrollToTop";
+import routes from "route";
+
+const AdminLayout = Loadable({
+  loader: () => import("./App/layout/AdminLayout"),
+  loading: Loader,
+});
+
 function checkIfUserConnectedAndReturnUser() {
   let user = {
     isAuthenticated: false,
@@ -91,90 +106,102 @@ class AppRouter extends Component {
   }
 
   render() {
+    const menu = routes.map((route, index) => {
+      return route.component ? (
+        <Route
+          key={index}
+          path={route.path}
+          exact={route.exact}
+          name={route.name}
+          render={(props) => <route.component {...props} />}
+        />
+      ) : null;
+    });
+
     return (
       <BrowserRouter>
         <main>
-          <Switch>
-            <ProtectedRoute
-              path="/profile"
-              isAuthenticated={this.state.isAuthenticated}
-              component={(props) => (
-                <ProfilePage
-                  {...props}
-                  updateUserAfterImageChangeMethod={
-                    this.updateUserAfterImageChangeMethod
-                  }
-                  user={this.state.user}
+          <ScrollToTop>
+            <Suspense fallback={<Loader />}>
+              <Switch>
+                <ProtectedRoute
+                  path="/profile"
+                  isAuthenticated={this.state.isAuthenticated}
+                  component={(props) => (
+                    <ProfilePage
+                      {...props}
+                      updateUserAfterImageChangeMethod={
+                        this.updateUserAfterImageChangeMethod
+                      }
+                      user={this.state.user}
+                    />
+                  )}
                 />
-              )}
-            />
-            <ProtectedRoute
-              path="/updatePassword"
-              isAuthenticated={this.state.isAuthenticated}
-              component={(props) => <ProfileUpdatePasswordPage {...props} />}
-            />
-            <ProtectedRoute
-              path="/updateProfile"
-              isAuthenticated={this.state.isAuthenticated}
-              component={(props) => (
-                <ProfileUpdateInfosPage
-                  success={
-                    this.state.profileUpdateInfosPageSuccess
-                      ? this.state.profileUpdateInfosPageSuccess
-                      : {}
-                  }
-                  updateUser={this.updateUser}
-                  {...props}
-                  user={this.state.user}
+                <ProtectedRoute
+                  path="/updatePassword"
+                  isAuthenticated={this.state.isAuthenticated}
+                  component={(props) => (
+                    <ProfileUpdatePasswordPage {...props} />
+                  )}
                 />
-              )}
-            />
-            <ProtectedRouteRedirectToHome
-              path="/resetPassword/:id"
-              isAuthenticated={!this.state.isAuthenticated}
-              component={(props) => <ResetPasswordPage {...props} />}
-            />
-            <ProtectedRouteRedirectToHome
-              path="/signIn"
-              isAuthenticated={!this.state.isAuthenticated}
-              component={(props) => (
-                <LoginPage {...props} loginMethod={this.loginMethod} />
-              )}
-            />
-            <ProtectedRouteRedirectToHome
-              path="/forgotPassword"
-              isAuthenticated={!this.state.isAuthenticated}
-              component={(props) => <ForgotPasswordPage {...props} />}
-            />
-            <ProtectedRouteRedirectToHome
-              path="/signUp"
-              isAuthenticated={!this.state.isAuthenticated}
-              component={(props) => <SignUpPage {...props} />}
-            />
-            <ProtectedRouteRedirectToHome
-              path="/accountActivation/:id"
-              isAuthenticated={!this.state.isAuthenticated}
-              component={(props) => <AccountActivationPage {...props} />}
-            />
-            <Route path="/login" component={LoginPage} />
+                <ProtectedRoute
+                  path="/updateProfile"
+                  isAuthenticated={this.state.isAuthenticated}
+                  component={(props) => (
+                    <ProfileUpdateInfosPage
+                      success={
+                        this.state.profileUpdateInfosPageSuccess
+                          ? this.state.profileUpdateInfosPageSuccess
+                          : {}
+                      }
+                      updateUser={this.updateUser}
+                      {...props}
+                      user={this.state.user}
+                    />
+                  )}
+                />
+                <ProtectedRouteRedirectToHome
+                  path="/resetPassword/:id"
+                  isAuthenticated={!this.state.isAuthenticated}
+                  component={(props) => <ResetPasswordPage {...props} />}
+                />
+                <ProtectedRouteRedirectToHome
+                  path="/signIn"
+                  isAuthenticated={!this.state.isAuthenticated}
+                  component={(props) => (
+                    <LoginPage {...props} loginMethod={this.loginMethod} />
+                  )}
+                />
+                <ProtectedRouteRedirectToHome
+                  path="/forgotPassword"
+                  isAuthenticated={!this.state.isAuthenticated}
+                  component={(props) => <ForgotPasswordPage {...props} />}
+                />
+                <ProtectedRouteRedirectToHome
+                  path="/signUp"
+                  isAuthenticated={!this.state.isAuthenticated}
+                  component={(props) => <SignUpPage {...props} />}
+                />
+                <ProtectedRouteRedirectToHome
+                  path="/accountActivation/:id"
+                  isAuthenticated={!this.state.isAuthenticated}
+                  component={(props) => <AccountActivationPage {...props} />}
+                />
+                <Route path="/login" component={LoginPage} />
 
-            <Route path="/add_object" component={AddObject} />
-            <Route path="/list_object" component={ListObject} />
-            <Route path="/detail_object" component={DetailObject} />
+                <Route path="/add_object" component={AddObject} />
+                <Route path="/list_object" component={ListObject} />
+                <Route path="/detail_object" component={DetailObject} />
 
-            <Route path="/person_add" component={PersonAdd} />
-            <Route path="/person_list" component={PersonList} />
-            <Route path="/person_detail" component={PersonDetail} />
+                <Route path="/person_add" component={PersonAdd} />
+                <Route path="/person_list" component={PersonList} />
+                <Route path="/person_detail" component={PersonDetail} />
 
-            <Route path="/admin" component={Admin} />
-            <Redirect from="/ad" to="/admin/dashboard" />
-            <Route path="/landing-page" component={LandingPage} />
-            <Route path="/profile-page" component={ProfilePagee} />
-            <Route path="/allComponents" component={AllComponents} />
-            <Route path="/product_page" component={ProductPage} />
-
-            <Route path="/" component={Components} />
-          </Switch>
+                {menu}
+                <Route path="/" component={AdminLayout} />
+              </Switch>
+            </Suspense>
+          </ScrollToTop>
         </main>
       </BrowserRouter>
     );
