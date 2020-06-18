@@ -1,4 +1,4 @@
-import Layout from "../Components/MyLayout";
+import Layout from "../../components/MyLayout";
 import { Link } from "react-router-dom";
 import React from "react";
 //import 'jquery'

@@ -71,6 +71,7 @@ const userSchema = mongoose.Schema({
   },
   tokens: {
     type: Array,
+    default: [],
   },
 });
 

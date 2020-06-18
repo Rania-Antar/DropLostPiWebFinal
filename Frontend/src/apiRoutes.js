@@ -30,6 +30,8 @@ import ProfileUpdateInfosPage from "./views/Api/ProfileUpdateInfosPage";
 import AccountActivationPage from "./views/Api/accountActivation";
 import ForgotPasswordPage from "./views/Api/ForgotPasswordPage";
 import ResetPasswordPage from "./views/Api/ResetPasswordPage";
+import SignUp1 from "./Demo/Authentication/SignUp/SignUp1";
+import Signin1 from "./Demo/Authentication/SignIn/SignIn1";
 
 import Loadable from "react-loadable";
 
@@ -39,6 +41,8 @@ import Loader from "./App/layout/Loader";
 import Aux from "./hoc/_Aux";
 import ScrollToTop from "./App/layout/ScrollToTop";
 import routes from "route";
+
+import Navigation from "./App/layout/AdminLayout/Navigation";
 
 const AdminLayout = Loadable({
   loader: () => import("./App/layout/AdminLayout"),
@@ -84,7 +88,7 @@ class AppRouter extends Component {
   }
 
   logoutMethod() {
-    axios.delete("api/auth/SignOut").then((res) => {
+    axios.delete("https://localhost:8080/api/auth/SignOut").then((res) => {
       delete axios.defaults.headers.common["Authorization"];
       localStorage.removeItem("Authorization");
       localStorage.removeItem("user");
@@ -120,6 +124,11 @@ class AppRouter extends Component {
 
     return (
       <BrowserRouter>
+        <Header
+          logoutMethod={this.logoutMethod}
+          isAuthenticated={this.state.isAuthenticated}
+          user={this.state.user}
+        />
         <main>
           <ScrollToTop>
             <Suspense fallback={<Loader />}>
@@ -166,10 +175,10 @@ class AppRouter extends Component {
                   component={(props) => <ResetPasswordPage {...props} />}
                 />
                 <ProtectedRouteRedirectToHome
-                  path="/signIn"
+                  path="/auth/signin-1"
                   isAuthenticated={!this.state.isAuthenticated}
                   component={(props) => (
-                    <LoginPage {...props} loginMethod={this.loginMethod} />
+                    <Signin1 {...props} loginMethod={this.loginMethod} />
                   )}
                 />
                 <ProtectedRouteRedirectToHome
@@ -178,9 +187,9 @@ class AppRouter extends Component {
                   component={(props) => <ForgotPasswordPage {...props} />}
                 />
                 <ProtectedRouteRedirectToHome
-                  path="/signUp"
+                  path="/auth/signup-1"
                   isAuthenticated={!this.state.isAuthenticated}
-                  component={(props) => <SignUpPage {...props} />}
+                  component={(props) => <SignUp1 {...props} />}
                 />
                 <ProtectedRouteRedirectToHome
                   path="/accountActivation/:id"

@@ -43,7 +43,7 @@ export default class UserList extends Component {
       .then((response) => {
         this.setState({ users: response.data });
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
       });
   }
@@ -67,7 +67,7 @@ export default class UserList extends Component {
           }}
         >
           <a
-            href="/users/create"
+            href="/admin/create"
             className="btn btn-primary btn-info btn active"
             role="button"
             aria-pressed="true"
@@ -113,7 +113,7 @@ export default class UserList extends Component {
               </tr>
             </thead>
             <tbody>
-              {filteredusers.map(function (currentTodo, i) {
+              {filteredusers.map(function(currentTodo, i) {
                 return <Todo todo={currentTodo} key={i} />;
               })}
             </tbody>

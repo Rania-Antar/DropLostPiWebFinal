@@ -18,7 +18,7 @@ export default class UserEdit extends Component {
       .then((response) => {
         this.setState({ todos: response.data });
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
       });
 
@@ -27,13 +27,13 @@ export default class UserEdit extends Component {
       .then((response) => {
         this.setState({ Roles: response.data });
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
       });
   }
 
   RoleList() {
-    return this.state.Roles.map(function (currentTodo, i) {
+    return this.state.Roles.map(function(currentTodo, i) {
       return <ShowRole todo={currentTodo} key={i} />;
     });
   }
@@ -70,9 +70,15 @@ export default class UserEdit extends Component {
     console.log(this.state.todos);
     const axios = require("../../utils/axios");
     axios
-      .put("https://localhost:8080/role/user/" + this.props.match.params.id, {
-        role,
-      })
+      .put(
+        "https://localhost:8080/role/user?id=" + this.props.match.params.id,
+        {
+          firstName,
+          lastName,
+          email,
+          role,
+        }
+      )
       .then((result) => {
         this.props.history.push("/admin");
       });

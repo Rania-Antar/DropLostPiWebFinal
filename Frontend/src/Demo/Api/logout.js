@@ -1,4 +1,4 @@
-import Layout from "../Components/MyLayout";
+import Layout from "../../components/MyLayout";
 import "jquery";
 import React from "react";
 

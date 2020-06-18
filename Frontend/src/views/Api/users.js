@@ -59,7 +59,7 @@ class Index extends React.Component {
                 <button
                   type="button"
                   onClick={this.navigate}
-                  path="/admin/users/user"
+                  path="/users/user"
                   className="btn btn-sm btn-outline-secondary"
                 >
                   + New User
@@ -83,7 +83,7 @@ class Index extends React.Component {
                   <td>{user.email}</td>
                   <td>{user.role}</td>
                   <td>
-                    <Link href={"/admin/users/user?id=" + user._id} user={user}>
+                    <Link href={"/users/user?id=" + user._id} user={user}>
                       <a className="btn btn-sm btn-warning">edit</a>
                     </Link>
                     <a

@@ -1,6 +1,7 @@
 const config = {
   MongoURI:
-    "mongodb+srv://admin:admin@cluster0-tdssk.gcp.mongodb.net/test?retryWrites=true&w=majority", //"mongodb://localhost:27017/piweb",
+    //"mongodb+srv://admin:admin@cluster0-tdssk.gcp.mongodb.net/test?retryWrites=true&w=majority",
+    "mongodb://localhost:27017/piweb",
   port: 8080,
   BASE_URL: "https://localhost:8080",
   FACEBOOK_ID: "2817637084956105",

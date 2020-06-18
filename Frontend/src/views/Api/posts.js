@@ -71,7 +71,7 @@ class Index extends React.Component {
       .then((e) => {
         console.log(e);
         alert("Post saved successfully !");
-        this.props.history.push("/admin/posts");
+        this.props.history.push("/posts");
         this.setState({ disabled: false });
       })
       .catch((e) => {

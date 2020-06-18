@@ -20,7 +20,7 @@ export default class ShowRoles extends Component {
       .then((response) => {
         this.setState({ todos: response.data });
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
       });
   }
@@ -37,7 +37,7 @@ export default class ShowRoles extends Component {
         toast.error("Role not deleted");
       });
     setTimeout(
-      function () {
+      function() {
         window.location.reload();
       }.bind(this),
       1300
@@ -55,7 +55,7 @@ export default class ShowRoles extends Component {
 
           <td>
             <a
-              href={"/showRole/edit/" + props.todo._id}
+              href={"/showRoles/edit/" + props.todo._id}
               class="btn btn-primary btn-info"
               role="button"
               aria-pressed="true"
@@ -133,7 +133,7 @@ export default class ShowRoles extends Component {
             </thead>
             <ToastContainer />
             <tbody>
-              {filteredusers.map(function (currentTodo, i) {
+              {filteredusers.map(function(currentTodo, i) {
                 return <Todo todo={currentTodo} key={i} />;
               })}
             </tbody>

@@ -61,7 +61,7 @@ class Index extends React.Component {
                 <button
                   type="button"
                   onClick={this.navigate}
-                  path="/admin/posts/post"
+                  path="/posts/post"
                   className="btn btn-sm btn-outline-secondary"
                 >
                   + New Saved Post
@@ -104,7 +104,7 @@ class Index extends React.Component {
                   </td>
                   <td>{post.createdTime}</td>
                   <td>
-                    <Link to={"/admin/posts/post?id=" + post._id} cat={post}>
+                    <Link to={"/posts/post?id=" + post._id} cat={post}>
                       <a className="btn btn-sm btn-warning">edit</a>
                     </Link>
                     <a

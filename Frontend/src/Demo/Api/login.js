@@ -1,4 +1,4 @@
-import Layout from "../Components/MyLayout";
+import Layout from "../../components/MyLayout";
 import React from "react";
 
 class Index extends React.Component {

@@ -14,7 +14,6 @@ const List = React.lazy(() => import("./Demo/Api/lists"));
 const Post = React.lazy(() => import("./Demo/Api/post"));
 const Posts = React.lazy(() => import("./Demo/Api/posts"));
 
-const Admin = React.lazy(() => import("./Demo/Admin/Admin"));
 const UserList = React.lazy(() => import("./Demo/Admin/UserList"));
 const UserTable = React.lazy(() => import("./Demo/Admin/UserTable"));
 const EditUser = React.lazy(() => import("./Demo/Admin/EditUser"));
@@ -38,7 +37,7 @@ const routes = [
     name: "Default",
     component: EditUser,
   },
-  { path: "/admin/test", exact: true, name: "Default", component: Admin },
+
   { path: "/showRoles", exact: true, name: "Default", component: ShowRoles },
   {
     path: "/showRoles/edit/:id",

@@ -1,5 +1,5 @@
-import Layout from "../../Components/MyLayout";
-import Post from "../../Components/post";
+import Layout from "../../components/MyLayout";
+import Post from "../../components/post";
 import React from "react";
 
 class Index extends React.Component {

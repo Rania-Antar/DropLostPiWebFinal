@@ -45,7 +45,11 @@ class SignUp1 extends React.Component {
         const { token, user } = response.data;
         console.log("hedha token :", token);
         this.loginMethod(user, token);
-        this.props.history.push("/api/fbposts");
+        if (user.role === "ADMIN") {
+          this.props.history.push("/api/fbposts");
+        } else {
+          this.props.history.push("/add_object");
+        }
         // this.setState({ errors: {} });
       })
       .catch((error) => {

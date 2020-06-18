@@ -54,7 +54,7 @@ class Index extends React.Component {
       .then((e) => {
         console.log(e);
         alert("category saved successfully !");
-        this.props.history.push("/admin/categories");
+        this.props.history.push("/categories");
         this.setState({ disabled: false });
       })
       .catch((e) => {

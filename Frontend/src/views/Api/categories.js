@@ -68,7 +68,7 @@ class Index extends React.Component {
                 <button
                   type="button"
                   onClick={this.navigate}
-                  path="/admin/categories/cat"
+                  path="/categories/cat"
                   className="btn btn-sm btn-outline-secondary"
                 >
                   + New Category
@@ -94,7 +94,7 @@ class Index extends React.Component {
                     </a>
                   </td>
                   <td>
-                    <Link to={"/admin/categories/cat?id=" + cat._id} cat={cat}>
+                    <Link to={"/categories/cat?id=" + cat._id} cat={cat}>
                       <a className="btn btn-sm btn-warning">edit</a>
                     </Link>
                     <a

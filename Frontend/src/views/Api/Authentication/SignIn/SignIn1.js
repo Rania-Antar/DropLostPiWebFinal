@@ -148,13 +148,13 @@ class SignUp1 extends React.Component {
                   </button>
                   <a
                     href="https://localhost:8080/auth/facebook"
-                    className="btn btn-primary"
+                    className="btn btn-primary shadow-2 mb-4"
                   >
                     Log in with Facebook
                   </a>
                   <p className="mb-2 text-muted">
                     Forgot password?{" "}
-                    <NavLink to="/auth/reset-password-1">Reset</NavLink>
+                    <NavLink to="/forgotPassword">Reset</NavLink>
                   </p>
                   <p className="mb-0 text-muted">
                     Don’t have an account?{" "}

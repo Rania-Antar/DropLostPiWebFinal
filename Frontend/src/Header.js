@@ -8,7 +8,10 @@ class Header extends Component {
   }
   render() {
     return (
-      <nav className="navbar navbar-expand-md bg-primary navbar-dark sticky-top">
+      <nav
+        className="navbar navbar-expand-md navbar-dark sticky-top "
+        style={{ backgroundColor: "#3F4D67" }}
+      >
         <NavLink className="navbar-brand" to="/">
           <img
             src={"/images/icon.png"}
@@ -16,7 +19,7 @@ class Header extends Component {
             height="30"
             style={{ borderRadius: "50%" }}
           />{" "}
-          DropLost
+          __ DropLost
         </NavLink>
         <button
           className="navbar-toggler"
@@ -92,7 +95,7 @@ class Header extends Component {
                       className="dropdown-item"
                       onClick={this.props.logoutMethod}
                       activeClassName=""
-                      to="/"
+                      to="/auth/signin-1"
                       exact
                     >
                       logout

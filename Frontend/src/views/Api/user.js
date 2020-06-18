@@ -62,7 +62,7 @@ class Index extends React.Component {
       .then((e) => {
         console.log(e);
         alert("User saved successfully !");
-        Router.push("/admin/users");
+        Router.push("/users");
         this.setState({ disabled: false });
       })
       .catch((e) => {

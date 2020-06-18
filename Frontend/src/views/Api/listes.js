@@ -61,7 +61,7 @@ class Index extends React.Component {
                 <button
                   type="button"
                   onClick={this.navigate}
-                  path="/admin/lists/list"
+                  path="/lists/list"
                   className="btn btn-sm btn-outline-secondary"
                 >
                   + New Word List
@@ -91,7 +91,7 @@ class Index extends React.Component {
                     </a>
                   </td>
                   <td>
-                    <Link to={"/admin/lists/list?id=" + post._id} cat={post}>
+                    <Link to={"/lists/list?id=" + post._id} cat={post}>
                       <a className="btn btn-sm btn-warning">edit</a>
                     </Link>
                     <a

@@ -63,7 +63,7 @@ class Index extends React.Component {
       .then((e) => {
         // console.log(e)
         alert("Word List saved successfully !");
-        this.props.history.push("/admin/api/fbposts");
+        this.props.history.push("/api/fbposts");
         this.setState({ disabled: false });
       })
       .catch((e) => {
