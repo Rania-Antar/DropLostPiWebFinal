@@ -26,7 +26,5 @@ yarn-error.log*
 /dist
 # compiled css
 # *.css
-/backend/node_modules/
-/backend/node_modules/package-lock.json
 
 

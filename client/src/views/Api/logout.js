@@ -10,7 +10,7 @@ class Index extends React.Component {
     localStorage.removeItem("token");
     var token = localStorage.getItem("token");
     if (!token) {
-      window.location.href = "/login";
+      window.location.href = "/auth/signin-1";
     }
   }
   render() {

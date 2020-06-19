@@ -120,12 +120,12 @@ class Header extends Component {
             {!this.props.isAuthenticated && (
               <React.Fragment>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/signIn">
+                  <NavLink className="nav-link" to="/auth/signin-1">
                     signIn
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/signUp">
+                  <NavLink className="nav-link" to="/auth/signup-1">
                     signUp
                   </NavLink>
                 </li>

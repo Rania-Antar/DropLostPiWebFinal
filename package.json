@@ -2,14 +2,14 @@
   "name": "pi_web_by_rania_antar",
   "version": "1.0.0",
   "description": "pi web by rania antar",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cd Frontend && npm run build",
-    "install-client": "cd Frontend && npm install",
+    "build": "cd client && npm run build",
+    "install-client": "cd client && npm install",
     "heroku-postbuild": "npm run install-client && npm run build",
     "start": "node app.js",
-    "client": "cd Frontend && npm start"
+    "client": "cd client && npm start"
   },
   "keywords": [],
   "author": "",
@@ -44,5 +44,8 @@
     "cookie-parser": "^1.4.5",
     "deepai": "^1.0.15",
     "dotenv": "^8.2.0"
+  },
+  "engines": {
+    "node": "10.16.3"
   }
 }

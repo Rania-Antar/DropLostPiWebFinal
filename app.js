@@ -39,11 +39,12 @@ const personRouter = require("./routes/persons");
 require("./configs/passport")(passport);
 
 //connecting to mongodb
-require("./configs/mongodbConnexion")(mongoose);
+//require("./configs/mongodbConnexion")(mongoose);
 
 /**
  * API keys and Passport configuration.
  */
+const passportConfig = require("./configs/pass");
 const config = require("./configs/config");
 const httpsOptions = {
   cert: fs.readFileSync(path.join(__dirname, "ssl", "server.cert")),
@@ -59,6 +60,7 @@ app.use(cors());
 mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 mongoose.set("useNewUrlParser", true);
+mongoose.set("useUnifiedTopology", true);
 mongoose.connect(process.env.MongoURI || config.MongoURI);
 mongoose.connection.on("error", (err) => {
   console.error(err);
@@ -93,6 +95,9 @@ app.use(passport.session());
 app.use(flash());
 app.use(lusca.xframe("SAMEORIGIN"));
 app.use(lusca.xssProtection(true));
+
+/*app.use(express.static(path.join(__dirname, "client", "build")));*/
+
 /*
  * Primary app routes.
  */
@@ -150,11 +155,12 @@ app.use("/persons", personRouter);
 app.use("/uploads", express.static("uploads"));
 
 //Serve static  assets in production
+
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("Frontend/build"));
+  app.use(express.static("client/build"));
 
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "Frontend", "build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
 
