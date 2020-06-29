@@ -55,7 +55,7 @@ class SectionLatestOffers extends React.Component {
   }
 
   getObjects = (variables) => {
-    Axios.post('http://localhost:5000/objects', variables)
+    Axios.post('https://localhost:8080/objects', variables)
       .then(response => {
 
         if (response.data.success) {
@@ -88,7 +88,7 @@ class SectionLatestOffers extends React.Component {
       return <GridItem md={4} sm={4}>
       <Card product plain>
         <CardHeader image plain>
-          <a href='#pablo'>
+        <a href={'/detail_object/'+object._id}>
           <ImageSlider images={object.images} />          </a>
           <div
             className={classes.coloredShadow}

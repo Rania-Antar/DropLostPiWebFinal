@@ -15,6 +15,7 @@ import GridContainer from '../../../../src/components/Grid/GridContainer.jsx'
 import GridItem from '../../../../src/components/Grid/GridItem.jsx'
 
 import navPillsStyle from '../../../jss/material-kit-pro-react/components/navPillsStyle.jsx'
+import SectionWork from './SectionWork.jsx'
 
 class NavPills extends React.Component {
   constructor(props) {
@@ -38,7 +39,11 @@ class NavPills extends React.Component {
   handleChangeIndex = (index) => {
     this.setState({ active: index }) 
   }
+  handleChangetab = (active) => {
+    this.setState({ active: active }) 
+  }
   render() {
+    
     const {
       classes,
       tabs,
@@ -107,7 +112,8 @@ class NavPills extends React.Component {
       </div>
     )
     return horizontal !== undefined ? (
-      <GridContainer>
+
+<GridContainer>
         <GridItem {...horizontal.tabsGrid}>{tabButtons}</GridItem>
         <GridItem {...horizontal.contentGrid}>{tabContent}</GridItem>
       </GridContainer>

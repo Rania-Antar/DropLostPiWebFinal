@@ -124,7 +124,7 @@ class UploadImage extends React.Component {
             <div onClick={() => this.onDelete(image)}>
               <img
                 style={{ minWidth: "260px", width: "260px", height: "170px" }}
-                src={`http://localhost:8080/${image}`}
+                src={`https://localhost:8080/${image}`}
                 alt={`productImg-${index}`}
               />
             </div>

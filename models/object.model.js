@@ -3,37 +3,33 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const objectSchema = new Schema({
-    objectTitle: {
+    writer: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }, objectTitle: {
         type: String,
         required: true,
-    },category: {
+    }, category: {
         type: String,
         required: true,
-    },location: {
+    }, location: {
         type: String,
         required: true,
-    },date: {
+    }, date: {
         type: Date,
         required: true,
-    },langtitude: {
-        type: Number,
-        required: true,
-    },/*latitude: {
-        type: Number,
-        required: true,
-    },*/adType: {
+    }, adType: {
         type: String,
         required: true,
-    },brandName: {
+    }, brandName: {
         type: String,
         required: true,
-    },images: {
+    }, images: {
         type: Array,
         default: []
-    },/*tags: [{
-
-        content: String,   
-    }],*/
+    }, distance: {
+        type: Number
+    }
 }, {
     timestamps: true,
 });

@@ -40,6 +40,9 @@ import CategoryIcon from '@material-ui/icons/Category';
 import category from './DataCheck.jsx';
 import ObjectDetail from '../ObjectDetail.jsx'
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import Moment from 'moment';
+import { object } from 'prop-types'
+
 class SectionProducts extends React.Component {
   constructor(props) {
     super(props)
@@ -72,13 +75,12 @@ class SectionProducts extends React.Component {
 
 
   getObjects = (variables) => {
-    Axios.post('http://localhost:5000/objects', variables)
+    Axios.post('https://localhost:8080/objects', variables)
       .then(response => {
 
         if (response.data.success) {
 
           if (variables.loadMore) {
-            // console.log("aaaaaaaaaa",response);
 
             this.setState({
               objects: [...this.state.objects, ...response.data.objects],
@@ -137,6 +139,20 @@ class SectionProducts extends React.Component {
 
   }
 
+  handleFiltersLocation = (filters, location) => {
+    const newFilters = { ...this.state.Filters }
+
+    newFilters[location] = filters
+    console.log(filters)
+
+    
+
+    //console.log(newFilters)
+
+    this.showFilteredResults(newFilters)
+    this.setState({ Filters: newFilters })
+
+  }
 
 
 
@@ -147,41 +163,60 @@ class SectionProducts extends React.Component {
     const renderCards = this.state.objects.map((object, index) => {
 
       return <GridItem md={4} sm={4}>
-        <Card plain product>
+        <Card blog >
           <CardHeader noShadow image >
             
-            <a href={'/detail_object'}>
+          <a href={'/detail_object/'+object._id}>
                 
             <ImageSlider images={object.images} />
             </a>
           </CardHeader>
-          <CardBody plain>
-            <a href='#pablo'>
-              <h4 className={classes.cardTitle}>{object.objectTitle}</h4>
-            </a>
+          <CardBody background>
+          <Button size='sm' block justifyContentBetween='center' color='twitter' >
+              <h6  className={classNames(
+                classes.tag,
+                classes.textInfo
+              )}>
+                  <i className='fab fa-' />               {object.category}
+                  </h6>
+                </Button>
+                <Button simple block round color='warning'>
+                
             <p className={classes.sectionGray}>
               <CategoryIcon style={{ color: 'green', fontSize: '1rem', textJustify: 'center' }} />
-              {object.category}
+              {object.brandName}
             </p>
+            </Button >
+           
+            <a style={{text: 'right'}} href={'/detail_object/' + object._id}>
+              <h3 className={classes.cardTitle}>{object.objectTitle}</h3>
+            </a>
+            <Button block href={'/detail_object/' + object._id} round color='white'>
+              <Subject /> Details
+                  </Button>
+         
           </CardBody>
           <CardFooter plain className={classes.justifyContentBetween}>
+            
             <div className={classes.priceContainer}>
+            
               <span className={classes.price}> <LocationOnIcon style={{ color: 'red', fontSize: '1rem', textJustify: 'center' }} />
                 {object.location}</span>
+                
             </div>
+            
             <Tooltip
               id='tooltip-top'
-              title='Save to Wishlist'
+              title={Moment(object.date).format('LLLL')}
+
               placement='left'
               classes={{ tooltip: classes.tooltip }}
             >
               <Button
-                justIcon
-                simple
-                color='rose'
-                className={classes.pullRight}
+                round
+                color='white'
               >
-                <FavoriteBorder />
+                 {Moment(object.date).format('YYYY-MM-DD')}
               </Button>
             </Tooltip>
           </CardFooter>
@@ -197,14 +232,12 @@ class SectionProducts extends React.Component {
             <GridItem md={3} sm={3}>
               <Card plain>
                 <CardBody className={classes.cardBodyRefine}>
-                  <h4 className={`${classes.cardTitle} ${classes.textLeft}`}>
                     Refine
                     <Tooltip
                       id='tooltip-top'
                       title='Reset Filter'
                       placement='top'
-                      classes={{ tooltip: classes.tooltip }}
-                    >
+                     >
                       <Button
                         link
                         justIcon
@@ -217,10 +250,11 @@ class SectionProducts extends React.Component {
                       </Button>
                     </Tooltip>
                     <Clearfix />
-                  </h4>
                   <CheckBox
 
                     handleFilters={filters => this.handleFilters(filters, "category")}
+                    handleFiltersLocation={filters => this.handleFiltersLocation(filters, "location")}
+                 
                   />
                 </CardBody>
               </Card>
@@ -247,142 +281,7 @@ class SectionProducts extends React.Component {
             </GridItem>
           </GridContainer>
           <br />
-          <h2>News in fashion</h2>
-          <GridContainer>
-            <GridItem md={4} sm={4}>
-              <Card background style={{ backgroundImage: `url(${color1})` }}>
-                <CardBody background>
-                  <h6
-                    className={classNames(
-                      classes.cardCategory,
-                      classes.textInfo
-                    )}
-                  >
-                    Productivity Apps
-                  </h6>
-                  <a href='#pablo'>
-                    <h3 className={classes.cardTitle}>
-                      The best trends in fashion 2017
-                    </h3>
-                  </a>
-                  <p className={classes.description}>
-                    {`Don't be scared of the truth because we need to restart the
-                    human foundation in truth And I love you like Kanye loves
-                    Kanye I love Rick Owens’ bed design but the back is...`}
-                  </p>
-                  <Button href='#' round color='white'>
-                    <Subject /> Read
-                  </Button>
-                </CardBody>
-              </Card>
-            </GridItem>
-            <GridItem md={4} sm={4}>
-              <Card background style={{ backgroundImage: `url(${color3})` }}>
-                <CardBody background>
-                  <h6
-                    className={classNames(
-                      classes.cardCategory,
-                      classes.textInfo
-                    )}
-                  >
-                    FASHION NEWS
-                  </h6>
-                  <a href='#pablo'>
-                    <h3 className={classes.cardTitle}>
-                      Kanye joins the Yeezy team at Adidas
-                    </h3>
-                  </a>
-                  <p className={classes.description}>
-                    {`Don't be scared of the truth because we need to restart the
-                    human foundation in truth And I love you like Kanye loves
-                    Kanye I love Rick Owens’ bed design but the back is...`}
-                  </p>
-                  <Button href='#' round color='white'>
-                    <Subject /> Read
-                  </Button>
-                </CardBody>
-              </Card>
-            </GridItem>
-            <GridItem md={4} sm={4}>
-              <Card background style={{ backgroundImage: `url(${color2})` }}>
-                <CardBody background>
-                  <h6
-                    className={classNames(
-                      classes.cardCategory,
-                      classes.textInfo
-                    )}
-                  >
-                    Productivity Apps
-                  </h6>
-                  <a href='#pablo'>
-                    <h3 className={classes.cardTitle}>
-                      Learn how to use the new colors of 2017
-                    </h3>
-                  </a>
-                  <p className={classes.description}>
-                    {`Don't be scared of the truth because we need to restart the
-                    human foundation in truth And I love you like Kanye loves
-                    Kanye I love Rick Owens’ bed design but the back is...`}
-                  </p>
-                  <Button href='#' round color='white'>
-                    <Subject /> Read
-                  </Button>
-                </CardBody>
-              </Card>
-            </GridItem>
-            <GridItem md={6} sm={6}>
-              <Card background style={{ backgroundImage: `url(${dg3})` }}>
-                <CardBody background>
-                  <h6
-                    className={classNames(
-                      classes.cardCategory,
-                      classes.textInfo
-                    )}
-                  >
-                    Tutorials
-                  </h6>
-                  <a href='#pablo'>
-                    <h3 className={classes.cardTitle}>
-                      Trending colors of 2017
-                    </h3>
-                  </a>
-                  <p className={classes.description}>
-                    {`Don't be scared of the truth because we need to restart the
-                    human foundation in truth And I love you like Kanye loves
-                    Kanye I love Rick Owens’ bed design but the back is...`}
-                  </p>
-                  <Button href='#' round color='white'>
-                    <Subject /> Read
-                  </Button>
-                </CardBody>
-              </Card>
-            </GridItem>
-            <GridItem md={6} sm={6}>
-              <Card background style={{ backgroundImage: `url(${dg1})` }}>
-                <CardBody background>
-                  <h6
-                    className={classNames(
-                      classes.cardCategory,
-                      classes.textInfo
-                    )}
-                  >
-                    Productivity Style
-                  </h6>
-                  <a href='#pablo'>
-                    <h3 className={classes.cardTitle}>Fashion & Style 2017</h3>
-                  </a>
-                  <p className={classes.description}>
-                    {`Don't be scared of the truth because we need to restart the
-                    human foundation in truth And I love you like Kanye loves
-                    Kanye I love Rick Owens’ bed design but the back is...`}
-                  </p>
-                  <Button href='#' round color='white'>
-                    <Subject /> Read
-                  </Button>
-                </CardBody>
-              </Card>
-            </GridItem>
-          </GridContainer>
+          
         </div>
       </div>
     )
