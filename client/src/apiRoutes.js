@@ -200,7 +200,7 @@ class AppRouter extends Component {
 
                 <Route path="/add_object" component={AddObject} />
                 <Route path="/list_object" component={ListObject} />
-                <Route path="/detail_object" component={DetailObject} />
+                <Route path="/detail_object/:objectId" component={DetailObject} />
 
                 <Route path="/person_add" component={PersonAdd} />
                 <Route path="/person_list" component={PersonList} />
